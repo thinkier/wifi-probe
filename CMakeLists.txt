@@ -30,20 +30,23 @@ include(common/pimoroni_bus)
 # rest of your project
 add_executable(${NAME} main.cpp)
 
-target_include_directories(wifi-probe PRIVATE .)
-
 target_link_libraries(${NAME}
         pico_stdlib
         pico_multicore
         pico_sync
         pico_graphics
-        pico_cyw43_arch_lwip_threadsafe_background
-#        pico_cyw43_arch_lwip_poll
         pico_display_2
         rgbled
         st7789
         button
         )
+
+target_include_directories(${NAME} PRIVATE .)
+target_link_libraries(${NAME}
+        pico_cyw43_arch_lwip_threadsafe_background
+        #        pico_cyw43_arch_lwip_poll
+        )
+
 
 # enable usb output
 pico_enable_stdio_usb(${NAME} 1)
